@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Laravel Developer - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff5722;
+            --dark: #1a1a1a;
+            --light: #f5f5f5;
+            --gray: #666;
+            --border: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 20px;
+            text-align: center;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            animation: slideDown 0.8s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            animation: slideUp 0.8s ease;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e64a19;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,87,34,0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f5f5;
+            transform: translateY(-2px);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 40px;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            margin: 20px auto 0;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .experience-highlight {
+            background: var(--light);
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .experience-highlight strong {
+            color: var(--primary);
+        }
+
+        /* Skills Section */
+        .skills {
+            background: var(--light);
+            padding: 100px 20px;
+        }
+
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .skill-card h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+
+        .skill-card li {
+            padding: 8px 0;
+            color: var(--gray);
+        }
+
+        .skill-card li::before {
+            content: '✓ ';
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .project-content p {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            background: var(--light);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Experience Section */
+        .experience {
+            background: var(--light);
+            padding: 100px 20px;
+        }
+
+        .experience-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: 0;
+            text-align: right;
+            padding-right: 50px;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 50%;
+            padding-left: 50px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 20px;
+            border: 4px solid white;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary);
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content .year {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-item h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .contact-item a, .contact-item p {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: white;
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 15px;
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item {
+                width: 100%;
+                margin-left: 0 !important;
+                padding-left: 50px !important;
+                text-align: left !important;
+                padding-right: 0 !important;
+            }
+
+            .timeline-marker {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd) {
+                padding-left: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Dev</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Senior Laravel Developer</h1>
+        <p class="hero-subtitle">Building scalable web applications with 5+ years of expertise</p>
+        <div class="cta-buttons">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Full-Stack Web Developer</h3>
+                <p>With 5+ years of professional experience in Laravel development, I specialize in creating robust, scalable backend solutions and full-stack applications that drive business value.</p>
+                <p>I'm passionate about clean code, best practices, and continuous learning. My expertise spans from architecting complex systems to mentoring junior developers.</p>
+                <div class="experience-highlight">
+                    <strong>5+ Years</strong> of professional Laravel development<br>
+                    <strong>50+ Projects</strong> completed successfully<br>
+                    <strong>100+ Users</strong> impacted through various applications
+                </div>
+            </div>
+            <div class="about-text">
+                <h3>What I Do</h3>
+                <p>✓ Design and develop scalable REST APIs</p>
+                <p>✓ Build modern, responsive web applications</p>
+                <p>✓ Implement database architecture and optimization</p>
+                <p>✓ Ensure code quality through testing and best practices</p>
+                <p>✓ Deploy and manage production applications</p>
+                <p>✓ Mentor and lead development teams</p>
+                <p style="margin-top: 20px;">I enjoy tackling complex problems and delivering solutions that exceed expectations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="skills-container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h4>Backend Development</h4>
+                    <ul>
+                        <li>Laravel / Lumen</li>
+                        <li>RESTful APIs</li>
+                        <li>Microservices</li>
+                        <li>GraphQL</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h4>Database Management</h4>
+                    <ul>
+                        <li>MySQL / PostgreSQL</li>
+                        <li>Database Design</li>
+                        <li>Query Optimization</li>
+                        <li>Redis Caching</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h4>Frontend Technologies</h4>
+                    <ul>
+                        <li>Vue.js / React</li>
+                        <li>Blade Templates</li>
+                        <li>Tailwind CSS</li>
+                        <li>JavaScript ES6+</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h4>DevOps & Tools</h4>
+                    <ul>
+                        <li>Docker & Kubernetes</li>
+                        <li>CI/CD Pipelines</li>
+                        <li>Git & GitHub</li>
+                        <li>AWS / Heroku</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h4>Testing & Quality</h4>
+                    <ul>
+                        <li>Unit Testing</li>
+                        <li>Integration Tests</li>
+                        <li>Code Review</li>
+                        <li>Performance Optimization</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h4>Additional Skills</h4>
+                    <ul>
+                        <li>System Architecture</li>
+                        <li>Team Leadership</li>
+                        <li>Agile Methodology</li>
+                        <li>Technical Documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">📊</div>
+                <div class="project-content">
+                    <h3>Analytics Dashboard</h3>
+                    <p>Real-time analytics platform with advanced data visualization features. Built with Laravel backend and Vue.js frontend.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Laravel</span>
+                        <span class="tech-tag">Vue.js</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Redis</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">🛒</div>
+                <div class="project-content">
+                    <h3>E-Commerce Platform</h3>
+                    <p>Full-featured e-commerce solution with payment gateway integration, inventory management, and admin dashboard.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Laravel</span>
+                        <span class="tech-tag">Stripe</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Tailwind</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">💼</div>
+                <div class="project-content">
+                    <h3>Project Management Tool</h3>
+                    <p>Collaborative project management system with real-time updates, task tracking, and team communication features.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Laravel</span>
+                        <span class="tech-tag">WebSockets</span>
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">🔐</div>
+                <div class="project-content">
+                    <h3>SaaS Platform</h3>
+                    <p>Multi-tenant SaaS application with user management, subscription handling, and advanced security features.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Laravel</span>
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">OAuth</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">📱</div>
+                <div class="project-content">
+                    <h3>Mobile API Backend</h3>
+                    <p>RESTful API backend for iOS/Android applications with push notifications, authentication, and data synchronization.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Laravel</span>
+                        <span class="tech-tag">REST API</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">JWT</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">🚀</div>
+                <div class="project-content">
+                    <h3>Startup MVP</h3>
+                    <p>Rapid MVP development for a tech startup. Delivered market-ready product in record time with scalable architecture.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Laravel</span>
+                        <span class="tech-tag">Vue.js</span>
+                        <span class="tech-tag">Agile</span>
+                        <span class="tech-tag">CI/CD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experience">
+        <div class="experience-container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Senior Laravel Developer</h3>
+                        <div class="year">2022 - Present</div>
+                        <p>Leading development of enterprise-level applications. Mentoring junior developers and establishing best practices across the team.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Full-Stack Developer</h3>
+                        <div class="year">2020 - 2022</div>
+                        <p>Developed and maintained multiple web applications. Implemented database optimizations and led code review initiatives.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Junior Laravel Developer</h3>
+                        <div class="year">2019 - 2020</div>
+                        <p>Started career with Laravel framework. Quickly advanced to handling complex projects and leading smaller initiatives.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Web Developer Intern</h3>
+                        <div class="year">2018 - 2019</div>
+                        <p>Gained foundational knowledge in web development. Built first projects and learned industry best practices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2 class="section-title" style="color: white;">Let's Work Together</h2>
+            <p style="font-size: 18px; margin-top: 20px;">I'm always interested in hearing about new projects and opportunities.</p>
+            
+            <div class="contact-content">
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <a href="mailto:your.email@example.com">your.email@example.com</a>
+                </div>
+                <div class="contact-item">
+                    <h4>Phone</h4>
+                    <p>+1 (555) 000-0000</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Location</h4>
+                    <p>Your City, Country</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="#" title="GitHub">GH</a>
+                <a href="#" title="LinkedIn">in</a>
+                <a href="#" title="Twitter">tw</a>
+                <a href="#" title="Portfolio">web</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Your Name. All rights reserved. | Built with passion for quality code.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add scroll animation for elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideUp 0.6s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-card, .project-card').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
